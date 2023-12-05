@@ -20,13 +20,10 @@ for idx, card in enumerate(input):
             matches += 1
     numofmatches[idx] = matches
 
-#print(scores)
-#print(numofmatches)
 final_score = 0
 for i in range(201):
-    #print(numofcards)
     final_score+=numofcards[i]
     for j in range(0,numofmatches[i]):
-        numofcards[i+j+1] = numofcards[i+j+1]+numofcards[i]
+        numofcards[i+j+1] += numofcards[i]
 
 print(final_score)

@@ -1,3 +1,6 @@
+from collections import defaultdict
+import time
+
 #input = open("Day12_test.txt", "r").read().splitlines()
 input = open("Day12_in.txt", "r").read().splitlines()
 
@@ -6,9 +9,16 @@ input = open("Day12_in.txt", "r").read().splitlines()
 
 
 def getPossibleCombinations(possible, required, rangeidx):
+    if (memory[len(possible), rangeidx]) > 0:
+        #print("MEMORY")
+        #print(len(possible), rangeidx)
+        #print(memory[len(possible), rangeidx])
+        return memory[len(possible), rangeidx]
     if rangeidx == len(ranges) and len(required) == 0:
+        memory[(len(possible), rangeidx)] = 1
         return 1
     if len(required) > 0 and rangeidx == len(ranges) or len(possible) < len(required) or (len(required) > 0 and possible[0] > required[0]):
+        memory[(len(possible), rangeidx)] = 0
         return 0
     combs = 0
     myRange = ranges[rangeidx]
@@ -29,22 +39,30 @@ def getPossibleCombinations(possible, required, rangeidx):
                 newpossible = possible[myidx+myRange+1::]
             combs += getPossibleCombinations(newpossible, newrequired, rangeidx+1)
         myidx += 1
+    memory[(len(possible), rangeidx)] = combs
     return combs
 
 def expandGears(gears):
     gears = '?'.join([gears for i in range(5)])
     return gears
 
+def defaultValue():
+    return -1
+
 arrangements = 0
-for line in input:
-    #print(line)
+start = time.time()
+for a in range(len(input)):
+    if a%50 == 0:
+        print(a)
+    line = input[a]
+    print(line)
     gears, ranges = line.split(' ')
-    #gears = expandGears(gears)
+    gears = expandGears(gears)
     gears = [c for c in gears]
-    ranges = [int(x) for x in ranges.split(',')]
-    #ranges = ''.join([''.join(ranges.split(',')) for i in range(5)])
-    #ranges = [int(x) for x in ranges]
-    print(ranges)
+    #ranges = [int(x) for x in ranges.split(',')]
+    ranges = ''.join([''.join(ranges.split(',')) for i in range(5)])
+    ranges = [int(x) for x in ranges]
+    #print(ranges)
     possible = []
     required = []
     for i in range(len(gears)):
@@ -56,9 +74,10 @@ for line in input:
     #print(possible)
     #print(required)
     #print(gears, ranges)
+    memory = defaultdict(defaultValue)
     res = getPossibleCombinations(possible, required, 0)
     #print(res)
     arrangements += res
+end = time.time()
+print("Runtime: ", end-start)
 print(arrangements)
-
-303,121,579,983,974

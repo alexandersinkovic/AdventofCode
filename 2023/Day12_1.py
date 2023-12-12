@@ -6,10 +6,12 @@ input = open("Day12_in.txt", "r").read().splitlines()
 
 #???#?????????# 1,6,4
 #?????????????.#.. 4,3,1
+#???????.??? 1,3
+#?.????????.???????? 1,5,1,6
 
 
 def getPossibleCombinations(possible, required, rangeidx):
-    if (memory[len(possible), rangeidx]) > 0:
+    if (memory[len(possible), rangeidx]) >= 0:
         #print("MEMORY")
         #print(len(possible), rangeidx)
         #print(memory[len(possible), rangeidx])
@@ -25,6 +27,8 @@ def getPossibleCombinations(possible, required, rangeidx):
     #print(possible, required, rangeidx, myRange)
     myidx = 0
     while myidx <= len(possible) - myRange:
+        if (len(required) > 0 and possible[myidx] > required[0]):
+            break
         fit = True
         for i in range(0, myRange-1):
             if possible[myidx + i] + 1 != possible[myidx + i + 1]:
@@ -51,13 +55,14 @@ def defaultValue():
 
 arrangements = 0
 start = time.time()
-for a in range(len(input)):
+for a in range(7,len(input)):
     if a%50 == 0:
         print(a)
     line = input[a]
-    print(line)
+    #print(line)
     gears, ranges = line.split(' ')
     gears = expandGears(gears)
+    #print(gears)
     gears = [c for c in gears]
     #ranges = [int(x) for x in ranges.split(',')]
     ranges = ''.join([''.join(ranges.split(',')) for i in range(5)])
@@ -80,4 +85,8 @@ for a in range(len(input)):
     arrangements += res
 end = time.time()
 print("Runtime: ", end-start)
+#print(memory)
 print(arrangements)
+
+#348217226263679 too high
+#190408349368393601 also too high obviously

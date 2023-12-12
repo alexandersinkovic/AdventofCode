@@ -1,8 +1,8 @@
 from collections import defaultdict
 import time
 
-#input = open("Day12_test.txt", "r").read().splitlines()
-input = open("Day12_in.txt", "r").read().splitlines()
+input = open("Day12_test.txt", "r").read().splitlines()
+#input = open("Day12_in.txt", "r").read().splitlines()
 
 #???#?????????# 1,6,4
 #?????????????.#.. 4,3,1
@@ -20,14 +20,16 @@ def getPossibleCombinations(possible, required, rangeidx):
         memory[(len(possible), rangeidx)] = 1
         return 1
     if len(required) > 0 and rangeidx == len(ranges) or len(possible) < len(required) or (len(required) > 0 and possible[0] > required[0]):
-        memory[(len(possible), rangeidx)] = 0
+        #memory[(len(possible), rangeidx)] = 0
         return 0
     combs = 0
     myRange = ranges[rangeidx]
-    #print(possible, required, rangeidx, myRange)
+    print(possible, required, rangeidx, myRange)
     myidx = 0
     while myidx <= len(possible) - myRange:
+        #print(myidx)
         if (len(required) > 0 and possible[myidx] > required[0]):
+            #print("required zahl not matched")
             break
         fit = True
         for i in range(0, myRange-1):
@@ -37,10 +39,12 @@ def getPossibleCombinations(possible, required, rangeidx):
             fitted = possible[myidx: myidx+myRange:]
             newrequired = [f for f in required if f not in fitted]
             newpossible = []
+            #print(fitted, newrequired)
             if myidx+myRange == len(possible) or possible[myidx+myRange-1] +1 != possible[myidx+myRange]:
                 newpossible = possible[myidx+myRange::]
             else:
                 newpossible = possible[myidx+myRange+1::]
+            #print(newpossible, newrequired, rangeidx+1)
             combs += getPossibleCombinations(newpossible, newrequired, rangeidx+1)
         myidx += 1
     memory[(len(possible), rangeidx)] = combs
@@ -55,11 +59,11 @@ def defaultValue():
 
 arrangements = 0
 start = time.time()
-for a in range(7,len(input)):
+for a in range(11,12):#len(input)):
     if a%50 == 0:
         print(a)
     line = input[a]
-    #print(line)
+    print(line)
     gears, ranges = line.split(' ')
     gears = expandGears(gears)
     #print(gears)
@@ -81,12 +85,26 @@ for a in range(7,len(input)):
     #print(gears, ranges)
     memory = defaultdict(defaultValue)
     res = getPossibleCombinations(possible, required, 0)
-    #print(res)
+    print(res)
     arrangements += res
 end = time.time()
 print("Runtime: ", end-start)
 #print(memory)
 print(arrangements)
+
+#TEST
+#32
+#2787504
+#728086
+#921999479
+#1831120
+#2402950
+#512
+#1024
+#80000
+#14406
+
+#929845113
 
 #348217226263679 too high
 #190408349368393601 also too high obviously

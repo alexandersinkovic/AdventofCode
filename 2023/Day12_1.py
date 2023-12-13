@@ -37,6 +37,7 @@ def getPossibleCombinations(possible, required, rangeidx):
                 fit = False
         if fit:
             fitted = possible[myidx: myidx+myRange:]
+            #print(rangeidx, myidx, fitted)
             newrequired = [f for f in required if f not in fitted]
             newpossible = []
             #print(fitted, newrequired)
@@ -44,14 +45,18 @@ def getPossibleCombinations(possible, required, rangeidx):
                 newpossible = possible[myidx+myRange::]
             else:
                 newpossible = possible[myidx+myRange+1::]
-            #print(newpossible, newrequired, rangeidx+1)
-            combs += getPossibleCombinations(newpossible, newrequired, rangeidx+1)
+            print(newpossible, newrequired, rangeidx+1)
+            x = getPossibleCombinations(newpossible, newrequired, rangeidx+1)
+            print('Rekursion return')
+            print(x)
+            combs += x
         myidx += 1
+    print(len(possible), rangeidx)
     memory[(len(possible), rangeidx)] = combs
     return combs
 
 def expandGears(gears):
-    gears = '?'.join([gears for i in range(5)])
+    gears = '?'.join([gears for i in range(2)])
     return gears
 
 def defaultValue():
@@ -60,8 +65,8 @@ def defaultValue():
 arrangements = 0
 start = time.time()
 for a in range(11,12):#len(input)):
-    if a%50 == 0:
-        print(a)
+    #if a%50 == 0:
+    #    print(a)
     line = input[a]
     print(line)
     gears, ranges = line.split(' ')
@@ -69,9 +74,10 @@ for a in range(11,12):#len(input)):
     #print(gears)
     gears = [c for c in gears]
     #ranges = [int(x) for x in ranges.split(',')]
-    ranges = ''.join([''.join(ranges.split(',')) for i in range(5)])
+    ranges = ''.join([''.join(ranges.split(',')) for i in range(2)])
     ranges = [int(x) for x in ranges]
     #print(ranges)
+    print(gears, ranges)
     possible = []
     required = []
     for i in range(len(gears)):
@@ -89,7 +95,7 @@ for a in range(11,12):#len(input)):
     arrangements += res
 end = time.time()
 print("Runtime: ", end-start)
-#print(memory)
+print(memory)
 print(arrangements)
 
 #TEST

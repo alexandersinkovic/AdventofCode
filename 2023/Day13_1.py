@@ -16,21 +16,18 @@ def checkReflectionB(a, b):
 res = 0
 
 patterns = [x.split('\n') for x in input[:len(input)-1].split('\n\n')]
-for pattern in patterns[:1]:
-    #print("New pattern")
-    #for line in pattern:
-    #    print(line)
-    #print()
+for pattern in patterns:
     refFound = False
     #check horizontal
 
     for i in range(len(pattern)-1):
         j = 0
-        horRef = True
+        horRef = 0
         while i - j >= 0 and i + j < len(pattern)-1:
-            horRef = horRef and checkReflection(pattern[i-j], pattern[i+j+1])
+            #horRef = horRef and checkReflection(pattern[i-j], pattern[i+j+1])
+            horRef += checkReflectionB(pattern[i-j], pattern[i+j+1])
             j += 1
-        if horRef:
+        if horRef == 1:
             res += (i+1)*100
             refFound = True
             break
@@ -39,14 +36,13 @@ for pattern in patterns[:1]:
     if not refFound:
         for i in range(len(pattern[0])-1):
             j = 0
-            verRef = True
+            verRef = 0
             while i - j >= 0 and i + j < len(pattern[0])-1:
                 col1 = [pattern[x][i-j] for x in range(len(pattern))]
                 col2 = [pattern[x][i+j+1] for x in range(len(pattern))]
-                verRef = verRef and checkReflection(col1, col2)
+                verRef += checkReflectionB(col1, col2)
                 j+= 1
-            if verRef:
+            if verRef == 1:
                 res +=i+1
                 break
-    #print(res)
 print(res)

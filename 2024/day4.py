@@ -1,4 +1,5 @@
 from aocd import data
+from aoc_utils import DIRS4, splitTwice
 
 f = open('day4test.txt', 'r').read()
 
@@ -16,7 +17,7 @@ def findX(field, y, x):
 
 def part1(input):
     count = 0
-    input = [[c for c in line] for line in input.split('\n')]
+    input = splitTwice(input)
     for y in range(len(input)):
         for x in range(len(input[0])):
             if input[y][x] == 'X':
@@ -29,12 +30,12 @@ def part1(input):
 
 def part2(input):
     count = 0
-    input = [[c for c in line] for line in input.split('\n')]
+    input = splitTwice(input)
     for y in range(1, len(input)-1):
         for x in range(1, len(input[0])-1):
             if input[y][x] == 'A':
                 valid = True
-                for dy, dx in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
+                for dy, dx in DIRS4:
                     valid = valid and input[y+dy][x+dx] in ('M', 'S')
                 if valid and findX(input, y, x):
                     #print(y, x)

@@ -28,6 +28,9 @@ def part1():
             res += int(up[round((len(up)-1)/2)])
     print(res)
 
+def part1Functional():
+    return sum(map(lambda x : int(x[round((len(x)-1)/2)]),filter(lambda e : e == sorted(e, key=cmp_to_key(myComparator)), updates)))
+
 def part2():
     res = 0
     for up in updates:
@@ -36,5 +39,6 @@ def part2():
             res += int(up[round((len(up)-1)/2)])
     print(res)
 
-#part1()
-part2()
+part1()
+print(part1Functional())
+#part2()

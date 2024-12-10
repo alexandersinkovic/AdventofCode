@@ -1,5 +1,5 @@
 from aocd import data
-from aoc_utils import splitTwice, DIRS4
+from aoc_utils import splitTwice, DIRS_ADJ
 
 #data = open('day10test.txt', 'r').read()
 input = splitTwice(data)
@@ -10,7 +10,7 @@ def r(y, x, s, reached):
     if s == 9:# and (y, x) not in reached: #Comment is for part1
         reached.append((y, x))
         return 1
-    for dy, dx in DIRS4:
+    for dy, dx in DIRS_ADJ:
         if 0<=y+dy < len(input) and 0<=x+dx<len(input[0])and input[dy+y][dx+x] == s+1:
             res += r(dy+y, dx+x, s+1, reached)
     return res

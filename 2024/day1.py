@@ -1,6 +1,6 @@
-from aoc_fetcher import get_data
+from aocd import data
 
-input = get_data(2024, 1).splitlines()
+input = data.split('\n')
 
 input = [x.split('   ') for x in input]
 

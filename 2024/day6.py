@@ -1,12 +1,9 @@
 from aocd import data
-from aoc_utils import splitTwice
+from aoc_utils import splitTwice, DIRS4, TURNRIGHT
 import time
 
 #f = open('day6test.txt', 'r').read()
 #data = f
-
-DIRS4 = {'W': (0, -1), 'S': (1, 0), 'E': (0, 1), 'N': (-1, 0)}
-ROTATE = {'N': 'E', 'E': 'S', 'S': 'W', 'W': 'N'}
 
 def getGuardPosition(input: list[list[str]]):
     for y in range(len(input)):
@@ -36,7 +33,7 @@ def isBlocked(y, x, input):
     return False
 
 def rotate(dir):
-    return ROTATE[dir]
+    return TURNRIGHT[dir]
 
 def loopFound(y, x, dir, visitedDir):
     return dir in visitedDir[y][x]
@@ -45,7 +42,7 @@ def part1():
     input = splitTwice(data)
     visited = [[x for x in line] for line in data.split('\n')]
     y, x = getGuardPosition(input)
-    dir = 'N'
+    dir = 'U'
     while 0 <= y < len(input) and 0 <= x < len(input[0]):
         y, x, dir = step(y, x, dir, input, visited)
     return visited
@@ -60,7 +57,7 @@ def part2():
         for ox in range(len(input[0])):
             if path[oy][ox] == 'X':
                 y, x = getGuardPosition(input)
-                dir = 'N'
+                dir = 'U'
                 visited = [[x for x in line] for line in data.split('\n')]
                 visitedDir = [[[] for x in line] for line in data.split('\n')]
                 if (oy == y and ox == x) or input[oy][ox] == '#':

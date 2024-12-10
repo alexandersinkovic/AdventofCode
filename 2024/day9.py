@@ -2,7 +2,6 @@ from aocd import data
 from aoc_utils import add_to_dict
 import time
 
-test = '2333133121414131402121413444'
 
 def part1(input):
     files = {}
@@ -60,15 +59,9 @@ def part2(input):
                 spaceIDx+=1
     filesW = list(files.items())
     filesW.reverse()
-    #print("Space", space)
     for file in filesW:
-        #print(file)
         fSize = len(file[1])
-        #print(fSize)
-        #print(len(space)-fSize)
         for i in range(len(space)-fSize):
-            #print(space[i+fSize-1])
-            #print(space[i])
             if space[i+fSize-1] > file[1][-1]:
                 break
             if space[i+fSize-1] - space[i] == fSize-1:
@@ -76,7 +69,6 @@ def part2(input):
                 for f in files[file[0]]:
                     space.remove(f)
                 break
-        #print(files.items())
     print(files.items())
 
     checksum = list(map(lambda x: [x[0]*f for f in x[1]], list(files.items())))

@@ -1,6 +1,7 @@
-from aoc_fetcher import get_data
+from aocd import data
 
-input = get_data(2024, 2).splitlines()
+
+input = data.split('\n')
 #f = open('day2in.txt', 'r')
 #f = open('day2test.txt', 'r')
 #input = [line[:-1:] for line in f]

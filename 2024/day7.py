@@ -1,5 +1,4 @@
 #from aocd import data
-from itertools import combinations_with_replacement
 import math
 import time
 

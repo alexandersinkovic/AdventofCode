@@ -10,9 +10,10 @@ def blinkStone(n, cache):
     if n in cache.keys():
         return cache[n]
     t = str(n)
-    if len(t) % 2 == 0:
-        add_to_num_dict(n, [int(t[:int(len(t)/2)]), int(t[int(len(t)/2):])], cache)
-        return [int(t[:int(len(t)/2)]), int(t[int(len(t)/2):])]
+    lt = len(t)
+    if lt % 2 == 0:
+        add_to_num_dict(n, [int(t[:int(lt/2)]), int(t[int(lt/2):])], cache)
+        return [int(t[:int(lt/2)]), int(t[int(lt/2):])]
     else:
         add_to_num_dict(n, [n * 2024], cache)
         return [n * 2024]

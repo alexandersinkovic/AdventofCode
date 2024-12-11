@@ -1,5 +1,5 @@
 from aocd import data
-from aoc_utils import splitTwice, add_to_dict
+from aoc_utils import splitTwice, add_to_list_dict
 
 input = splitTwice(data)
 boundx = len(input[0])
@@ -10,7 +10,7 @@ antinodes = []
 for y in range(boundy):
     for x in range(boundx):
         if input[y][x] != '.':
-            add_to_dict(input[y][x], (y, x), antennas)
+            add_to_list_dict(input[y][x], (y, x), antennas)
 
 def checkAntinode(ay, ax, by, bx):
     dy = ay - by

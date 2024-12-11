@@ -1,5 +1,5 @@
 from aocd import data
-from aoc_utils import add_to_dict
+from aoc_utils import add_to_num_dict
 from functools import cmp_to_key
 
 #f = open('day5test.txt', 'r').read()
@@ -10,7 +10,7 @@ rules = [rule.split('|') for rule in rules.splitlines()]
 updates = [update.split(',') for update in updates.splitlines()]
 rulesDict = {}
 for before, after in rules:
-    add_to_dict(int(before), int(after), rulesDict)
+    add_to_num_dict(int(before), int(after), rulesDict)
 
 def myComparator(a, b):
     a = int(a)

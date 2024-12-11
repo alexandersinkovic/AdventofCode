@@ -1,5 +1,5 @@
 from aocd import data
-from aoc_utils import add_to_dict
+from aoc_utils import add_to_list_dict
 import time
 
 
@@ -11,7 +11,7 @@ def part1(input):
     for i in range(len(input)):
         if i%2 ==0:
             for j in range(int(input[i])):
-                add_to_dict(fileID, spaceIDx, files)
+                add_to_list_dict(fileID, spaceIDx, files)
                 spaceIDx += 1
             fileID+=1
         else:
@@ -50,7 +50,7 @@ def part2(input):
     for i in range(len(input)):
         if i%2 ==0:
             for j in range(int(input[i])):
-                add_to_dict(fileID, spaceIDx, files)
+                add_to_list_dict(fileID, spaceIDx, files)
                 spaceIDx += 1
             fileID+=1
         else:

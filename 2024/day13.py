@@ -25,7 +25,7 @@ def part1():
             #print("Skipping machine")
             continue
         possibleA = [a for a in range(0, 101) if (px - (a*ax)) % bx == 0 and (py - (a*ay)) % by == 0]
-        ways = [[a, (px - (a*ax))/ bx] for a in possibleA]
+        ways = [[a, (px - (a*ax))/ bx] for a in possibleA if (px - (a*ax))/ bx == (py - (a*ay))/ by]
         #print(ax, ay)
         #print(bx, by)
         #print(px, py)

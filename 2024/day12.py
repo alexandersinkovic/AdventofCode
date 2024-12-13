@@ -74,34 +74,7 @@ def calcSides(k, perimeter):
                 if xAbove[i]+1 != xAbove[i+1]:
                     ySides += 1
             ySides += 1
-    #whole XCoords Thing is probably useless. Just return ySides * 2
-    # DELETE -------------------
-    xCoords = set(map(lambda x: x[1], perimeter))
-    xSides = 0
-    for x in xCoords:
-        yBelow = []
-        yAbove = []
-        for py, px in perimeter:
-            if px == x:
-                if inputPad[py][px-1] != k:
-                    yAbove.append(py)
-                if inputPad[py][px+1] != k:
-                    yBelow.append(py)
-        yBelow.sort()
-        yAbove.sort()
-        if len(yBelow) > 0:
-            for i in range(len(yBelow)-1):
-                if yBelow[i]+1 != yBelow[i+1]:
-                    xSides += 1
-            xSides += 1
-        if len(yAbove) > 0:
-            for i in range(len(yAbove)-1):
-                if yAbove[i]+1 != yAbove[i+1]:
-                    xSides += 1
-            xSides += 1
-    #End of DELETE ----------------
-    #return ySides * 2
-    return xSides + ySides
+    return ySides * 2
 
 
 def part1():

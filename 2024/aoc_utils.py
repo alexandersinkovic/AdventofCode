@@ -1,3 +1,5 @@
+import re
+
 DIRS4 = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}
 DIRS_ADJ = list(DIRS4.values())
 TURNLEFT = {'U': 'L', 'L': 'D', 'D': 'R', 'R': 'U'}
@@ -18,3 +20,6 @@ def add_to_num_dict(k, v, dict):
         dict[k] += v
     else:
         dict[k] = v
+
+def getIntFromString(s: str):
+    return [int(x) for x in re.findall(r'[\+|-]?[0-9]+', s)]

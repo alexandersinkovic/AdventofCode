@@ -1,7 +1,9 @@
 from aocd import data
+from aoc_utils import getIntFromString
+import re
 
 #data = open('day14test.txt', 'r').read()
-robots = [l.split(' v=') for l in data.split('\n')]
+robots = data.split('\n')
 Y = 103
 YM = 51
 X = 101
@@ -11,14 +13,8 @@ SECONDS = 100
 def part1():
     q = [0,0,0,0]
     for robot in robots:
-        rx, ry = robot[0].split(',')
-        rx = int(rx.split('=')[1])
-        ry = int(ry)
+        rx, ry, vx, vy = getIntFromString(robot)
 
-        vx, vy = robot[1].split(',')
-        vx = int(vx)
-        vy = int(vy)
-        
         ry = (ry + vy * SECONDS) % Y
         rx = (rx + vx * SECONDS) % X
 
@@ -37,18 +33,11 @@ def part1():
     print(q[0] * q[1] * q[2] * q[3])
 
 def part2():
-    f = open('day14out.txt', 'w')
     for ridx in range(len(robots)):
-        rx, ry = robots[ridx][0].split(',')
-        rx = int(rx.split('=')[1])
-        ry = int(ry)
-
-        vx, vy = robots[ridx][1].split(',')
-        vx = int(vx)
-        vy = int(vy)
+        rx, ry, vx, vy = getIntFromString(robots[ridx])
         robots[ridx] = [ry, rx, vy, vx]
             
-    for s in range(SECONDS*100):
+    for s in range(1, SECONDS*100 + 1):
         if s % 1000 == 0:
             print('Simulating Second', s)
         bath = [['.' for _ in range(X)] for _ in range(Y)]
@@ -57,8 +46,12 @@ def part2():
             robot[1] = (robot[1] + robot[3]) % X
 
             bath[robot[0]][robot[1]] = '#'
-        f.write('Second ' + str(s) + '\n')
-        f.writelines([''.join(l) + '\n' for l in bath])
-        f.write('\n')
-
+        giantString = ''.join([''.join(l) for l in bath])
+        if re.search(r'########', giantString) is not None:
+            print(s)
+            for line in bath:
+                print(''.join(line))
+            break
+        
+part1()
 part2()

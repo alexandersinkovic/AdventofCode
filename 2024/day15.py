@@ -15,7 +15,6 @@ biggerWarehouse = [[c for c in ''.join(l)] for l in biggerWarehouse]
 movement = ''.join(movement.split('\n'))
 
 def move(ry, rx, dy, dx):
-    #print('move', ry, rx, dy, dx)
     boxes = []
     tx = rx
     ty = ry
@@ -26,7 +25,6 @@ def move(ry, rx, dy, dx):
     if warehouse[ty+dy][tx+dx] == '#':
         return ry, rx
     else:
-        #print(boxes)
         if len(boxes) > 0:
             by, bx = boxes[-1]
             by += dy
@@ -51,19 +49,15 @@ def part1():
     for x in range(len(warehouse)):
         if '@' in warehouse[x]:
             robot = [x, warehouse[x].index('@')]
-    #print(robot)
     moves = [m for m in movement]
     for i in range(len(moves)):
-        #print(moves[i])
         dy, dx = DIRS4[TRANSLATE[moves[i]]]
-        #print(dy, dx)
         robot = move(robot[0], robot[1], dy, dx)
         #for l in warehouse:
         #    print(''.join(l))
     print(gpsSum(warehouse, 'O'))
 
 def move2(ry, rx, dy, dx):
-    #print('move', ry, rx, dy, dx)
     if biggerWarehouse[ry+dy][rx+dx] == '#':
         return ry, rx
     elif biggerWarehouse[ry+dy][rx+dx] == '.':
@@ -76,7 +70,6 @@ def move2(ry, rx, dy, dx):
         bx = BOX[biggerWarehouse[ry+dy][rx+dx]]
         boxes.append([(ry+dy, rx+dx),(ry+dy, rx+dx+bx)])
         while moreBoxes:
-            #print(boxes)
             moreBoxes = False
             currBoxes = boxes[-1]
             nextBoxes = set()
@@ -93,11 +86,7 @@ def move2(ry, rx, dy, dx):
         biggerWarehouseCopy = [[c for c in l] for l in biggerWarehouse]
         boxes.reverse()
         for translateBoxes in boxes:
-            #print('Push boxes:', translateBoxes)
             for by, bx in translateBoxes:
-                #print(by, bx)
-                #print(biggerWarehouse[by+dy][bx+dx])
-                #print(biggerWarehouseCopy[by][bx])
                 biggerWarehouse[by+dy][bx+dx] = biggerWarehouseCopy[by][bx]
                 if dx == 0:
                     biggerWarehouse[by][bx] = '.'
@@ -117,9 +106,7 @@ def part2():
             robot = [x, biggerWarehouse[x].index('@')]
     moves = [m for m in movement]
     for i in range(len(moves)):
-        #print(moves[i])
         dy, dx = DIRS4[TRANSLATE[moves[i]]]
-        #print(dy, dx)
         robot = move2(robot[0], robot[1], dy, dx)
         #for l in biggerWarehouse:
         #    print(''.join(l))

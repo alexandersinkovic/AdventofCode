@@ -1,7 +1,6 @@
 from heapq import heappush, heappop
 from aocd import data
 from aoc_utils import splitTwice, DIRS4, TURNLEFT, TURNRIGHT
-from collections import defaultdict
 
 #data = open('day16test.txt', 'r').read()
 f = open('day16out.txt', 'w')

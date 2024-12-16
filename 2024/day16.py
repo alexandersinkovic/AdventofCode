@@ -1,12 +1,13 @@
 from heapq import heappush, heappop
 from aocd import data
 from aoc_utils import splitTwice, DIRS4, TURNLEFT, TURNRIGHT
-from collections import deque
+from collections import defaultdict
 
 #data = open('day16test.txt', 'r').read()
 f = open('day16out.txt', 'w')
 input = splitTwice(data)
-distMap = [['.' for _ in l] for l in input]
+distMap = [[['.' for _ in range(4)] for _ in l] for l in input]
+DIRS4Translate = {'U': 0, 'D': 1, 'L': 2, 'R': 3}
 
 def flood(y, x, dir, points, ey, ex):
     checkSteps = [(points, y, x, dir)]
@@ -15,8 +16,8 @@ def flood(y, x, dir, points, ey, ex):
         #print(cy, cx, cdir, cpoints)
         #print(cy, cx, cpoints)
         #print(distMap[ey][ex])
-        if distMap[cy][cx] == '.' or cpoints < distMap[cy][cx]:
-            distMap[cy][cx] = cpoints
+        if distMap[cy][cx][DIRS4Translate[cdir]] == '.' or cpoints < distMap[cy][cx][DIRS4Translate[cdir]]:
+            distMap[cy][cx][DIRS4Translate[cdir]] = cpoints
             if input[cy][cx] == 'E':
                 continue
             # forward
@@ -31,17 +32,17 @@ def flood(y, x, dir, points, ey, ex):
             dy, dx = DIRS4[TURNRIGHT[cdir]]
             if input[cy+dy][cx+dx] != '#':
                 heappush(checkSteps, (cpoints+1001, cy+dy, cx+dx, TURNRIGHT[cdir]))
-        if distMap[ey][ex] != '.':
-            checkSteps = list(filter(lambda s: s[0] < distMap[ey][ex], checkSteps))
-        if distMap[ey][ex] != '.' and distMap[ey][ex] < 108000:
+        if distMap[ey][ex][0] != '.':
+            checkSteps = list(filter(lambda s: s[0] < distMap[ey][ex][0], checkSteps))
+        if distMap[ey][ex][0] != '.' and distMap[ey][ex][0] < 108000:
             f.write(','.join([str(cy), str(cx), dir, str(cpoints)]))
             for line in distMap:
                 ml = [str(c) for c in line]
                 for i in range(len(line)):
                     if line[i] == '.':
-                        ml[i] = '....'
+                        ml[i] = '.......'
                     else:
-                        ml[i] = ml[i][:-3].zfill(3) + ' '
+                        ml[i] = ml[i].zfill(6) + ' '
                 f.write(''.join(ml) + '\n')
             print('')
             f.write('\n')
@@ -62,7 +63,8 @@ def part1():
                 ey, ex = y, x
     print(ry, rx, ey, ex)
     flood(ry, rx, 'R', 0, ey, ex)
-    print(distMap[ey][ex])
+    print(distMap[ey][ex][0])
 
 part1()
 #107476 is too high
+#107475 is too high

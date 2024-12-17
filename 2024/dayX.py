@@ -1,7 +1,7 @@
 from aocd import data
 import aoc_utils as au
 
-#data = open('dayXtest.txt', 'r')
+#data = open('dayXtest.txt', 'r').read()
 
 def part1():
     pass

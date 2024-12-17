@@ -66,7 +66,6 @@ def part1(a):
     while(inst < len(program)):
         opcode = program[inst]
         operand = program[inst+1]
-        #print(inst, opcode, operand)
         if (opcode == 0):
             adv(operand)
         elif (opcode == 1):
@@ -78,52 +77,37 @@ def part1(a):
         elif (opcode == 4):
             bxc()
         elif (opcode == 5):
-            output.append(str(out(operand)))
+            output.append(out(operand))
         elif (opcode == 6):
             bdv(operand)
         elif (opcode == 7):
             cdv(operand)
         inst += incr
         incr = 2
-    print('Output for A =',a ,'=>', ','.join(output))
-    print(','.join(output))
+    print('Output for A =',a ,'=>', ','.join([str(c) for c in output]))
+    print(','.join([str(c) for c in output]))
     print(A, B, C)
+    return(output)
 
 #Min = 35184372088832
 #Max = 281474976710656
 def part2():
-    for i in range(8,64):
-        global A
-        A = i
-        part1(i)
-    print(','.join([str(p) for p in program]))
+    goal = program
+    check = [0]
+    for k in range(1,17):
+        nextCheck = []
+        for c in check:
+            for i in range(c*8,(c+1)*8):
+                global A
+                A = i
+                output = part1(i)
+                if goal[-k:] == output:
+                    nextCheck.append(i)
+        check = nextCheck
+    print(check)
 #part1()
-#part2()
+part2()
+#Test
+A = 216584205979245
+print(part1(216584205979245))
 
-# A % 8 => B ^ 011 => A // 2 ^^ 3 => 011 ^ 101 => A // 8 => B ^ C => Output B%8 => Go again
-# B = A % 8 => 
-# B =.. => 
-# C = A // 2^B => 
-# B =.. => 
-# A = A//8 => 
-# B = B ^ C
-# Output
-
-# XOR 3
-# 000 => 011, 0, 3
-# 001 => 010, 1, 2
-# 010 => 001, 2, 1
-# 011 => 000, 3, 0
-# 100 => 111, 4, 7
-#...
-
-# XOR 5
-# 000 => 101, 0, 5
-# 001 => 100, 1, 4
-# 010 => 111, 2, 7
-# 011 => 110, 3, 6
-# 100 => 001, 4, 1
-# 101 => 000, 5, 0
-# 110 => 011, 6, 3
-# 111 => 010, 7, 2
-print(9 ^ 11)

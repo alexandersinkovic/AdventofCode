@@ -58,12 +58,13 @@ def part2():
         for sy, sx, sdir in step:
             score = distMap[sy][sx][DIRS4Translate[DIRINVERSE[sdir]]]
             dy, dx = DIRS4[sdir]
+            # check straight
             if score - 1 == distMap[sy+dy][sx+dx][DIRS4Translate[DIRINVERSE[sdir]]]:
                 nextStep.add((sy+dy, sx+dx, sdir))
-            #dy, dx = DIRS4[TURNLEFT[sdir]]
+            # check left
             if score - 1001 == distMap[sy+dy][sx+dx][DIRS4Translate[TURNRIGHT[sdir]]]:
                 nextStep.add((sy+dy, sx+dx, TURNLEFT[sdir]))
-            #dy, dx = DIRS4[TURNRIGHT[sdir]]
+            # check right
             if score - 1001 == distMap[sy+dy][sx+dx][DIRS4Translate[TURNLEFT[sdir]]]:
                 nextStep.add((sy+dy, sx+dx, TURNRIGHT[sdir]))
         for sy, sx, sd in list(nextStep):

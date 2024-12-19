@@ -107,7 +107,4 @@ def part2():
     print(check)
 #part1()
 part2()
-#Test
-A = 216584205979245
-print(part1(216584205979245))
 

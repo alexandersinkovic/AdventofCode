@@ -24,6 +24,10 @@ def add_to_num_dict(k, v, dict):
 def getIntFromString(s: str):
     return [int(x) for x in re.findall(r'[\+|-]?[0-9]+', s)]
 
-def printMatrix(matrix):
+def printMatrixAsString(matrix):
     for line in matrix:
         print(''.join([str(l) for l in line]))
+
+def printMatrix(matrix):
+    for line in matrix:
+        print(line)

@@ -1,6 +1,7 @@
 from aocd import get_data
 
 DATA = get_data(day=1, year=2025).splitlines()
+TEST = "L68,L30,R48,L5,R60,L55,L1,L99,R14,L82".split(',')
 
 def p1():
 
@@ -23,11 +24,6 @@ def p2():
 
     fullTurns = [int(abs(x / 100)) for x in input]
 
-    #test = [list(x) for x in list(zip(input, fullTurns))]
-
-    #for x in test:
-    #    x.append(getLast2Digits(x[0]))
-
     input = [getLast2Digits(x) for x in input]
 
 
@@ -35,11 +31,10 @@ def p2():
 
     curr = init
     for idx, n in enumerate(input):
-        curr = curr + n
-        #test[idx].append(curr)
-        if curr <= 0 or curr >= 100:
+        next = curr + n
+        if (curr > 0 and next <= 0) or next >= 100:
             res += 1
-        curr = curr % 100
+        curr = next % 100
     
     print(res)
     

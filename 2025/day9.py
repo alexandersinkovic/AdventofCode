@@ -38,10 +38,9 @@ def p1():
 def p2():
     grid = get_grid()
     prev_y, prev_x = COORDS[0]
-    print(prev_y, prev_x)
     grid[prev_y][prev_x] = 1
-    for l in grid:
-            print(l)
+    COORDS.append(COORDS[0])
+    #Draw Bounds
     for y,x in COORDS[1:]:
         print(y, x)
         if x == prev_x:
@@ -50,8 +49,13 @@ def p2():
             fill_horizontal(grid, prev_x, x, y)
         prev_x = x
         prev_y = y
-        for l in grid:
-            print(l)
+    
+    #Fill Loop
+    for row in grid:
+        is_inside = False
+        for y in row:
+            if y == 1 and is_inside:
+                pass
 
 
 #p1()
